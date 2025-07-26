@@ -6,7 +6,7 @@ const PostList = () => {
     const [posts,setPosts] = useState({})
     useEffect(()=>{
         async function getPosts(){
-            const res = await axios.get('http://localhost:4002/posts')
+            const res = await axios.get('http://posts.com/posts')
             console.log(res.data)
             setPosts(res.data)
         }

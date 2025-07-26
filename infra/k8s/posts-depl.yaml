@@ -20,13 +20,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: posts-clusterip-srv #beacuse we have nodeport we'd name it something else other than posts-srv
+  name: posts-clusterip-srv
 spec:
+  type: ClusterIP  #default not a must
   selector:
     app: posts
-    type: ClusterIP #default not a must
   ports:
     - name: posts
       protocol: TCP
-      port: 4000 #must match node.js listening port
+      port: 4000
       targetPort: 4000

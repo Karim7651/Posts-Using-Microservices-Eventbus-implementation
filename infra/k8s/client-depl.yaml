@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: event-bus-depl
+  name: client-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: event-bus
+      app: client
   template:
     metadata:
       labels:
-        app: event-bus
+        app: client
     spec:
       containers:
-        - name: event-bus
-          image: karimshaaban/event-bus:latest
+        - name: client
+          image: karimshaaban/client:latest
           imagePullPolicy: Never #don't pull from docker registery use the local image
 --- # to create multiple objects inside a yaml file
 apiVersion: v1
 kind: Service
 metadata:
-  name: event-bus-srv
+  name: client-srv
 spec:
   type: ClusterIP  #default not a must
   selector:
-    app: event-bus
+    app: client
   ports:
-    - name: event-bus
+    - name: client
       protocol: TCP
-      port: 4005
-      targetPort: 4005
+      port: 3000 #has to match react app listening port
+      targetPort: 3000

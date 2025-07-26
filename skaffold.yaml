@@ -1,0 +1,57 @@
+apiVersion: skaffold/v4beta3
+kind: Config
+manifests:
+  rawYaml:
+    - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: karimshaaban/client
+      context: client/my-app #when ever client changes in this dir => update pod
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: 'src/**/*.js' #when js files are changed => copy it to pod
+    - image: karimshaaban/comments
+      context: comments #when ever client changes in this dir => update pod
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: '*.js' #when js files are changed => copy it to pod
+    - image: karimshaaban/event-bus
+      context: event-bus #when ever client changes in this dir => update pod
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: '*.js' #when js files are changed => copy it to pod
+    - image: karimshaaban/moderation
+      context: moderation #when ever client changes in this dir => update pod
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: '*.js' #when js files are changed => copy it to pod
+    - image: karimshaaban/posts
+      context: posts #when ever client changes in this dir => update pod
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: '*.js' #when js files are changed => copy it to pod
+    - image: karimshaaban/query
+      context: query #when ever client changes in this dir => update pod
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: '*.js' #when js files are changed => copy it to pod
